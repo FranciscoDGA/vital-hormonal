@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { ARTICLES_DATA } from './data/articles';
 import { Article, CategoryType, QuickTrack } from './types';
 import { Navbar } from './components/Navbar';
+import { HomePage } from './pages/HomePage';
+import { BlogPage } from './pages/BlogPage';
 import { HeroSection } from './components/HeroSection';
 import { FeaturedPost } from './components/FeaturedPost';
 import { StarterTracks } from './components/StarterTracks';
 import { InteractiveToolsSection } from './components/InteractiveToolsSection';
 import { ArticleGrid } from './components/ArticleGrid';
 import { LeadMagnetBanner } from './components/LeadMagnetBanner';
-import { ArticleReaderModal } from './components/ArticleReaderModal';
+import { ArticlePage } from './pages/ArticlePage';
 import { LeadMagnetModal } from './components/LeadMagnetModal';
 import { FreeMaterialsModal } from './components/FreeMaterialsModal';
 import { AdminLeadsModal } from './components/AdminLeadsModal';
@@ -41,7 +45,8 @@ export default function App() {
   const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
 
   // View state for separate pages (Sobre, Legal, Contato)
-  const [currentView, setCurrentView] = useState<'home' | 'about' | 'legal' | 'contact' | 'blog'>('home');
+  const navigate = useNavigate();
+  const location = useLocation();
   const [legalModalTab, setLegalModalTab] = useState<'privacy' | 'terms' | 'lgpd'>('privacy');
   
   // 4 Interactive High-Authority Clinical Modals
@@ -162,7 +167,7 @@ export default function App() {
 
   const handleSymptomSelect = (tag: string) => {
     setSearchQuery(tag);
-    setCurrentView('blog');
+    navigate('/blog');
     window.scrollTo(0, 0);
   };
 
@@ -172,39 +177,17 @@ export default function App() {
       <SeoStructuredData article={activeArticle} />
 
       {/* Dynamic View: Active Full Article or Main Index Portal */}
-      {activeArticle ? (
-        <ArticleReaderModal
-          article={activeArticle}
-          onClose={() => setActiveArticle(null)}
-          savedArticleIds={savedArticleIds}
-          onToggleSave={toggleSaveArticle}
-          onSelectArticle={(art) => {
-            setActiveArticle(art);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          onOpenGuideModal={() => setIsFreeMaterialsOpen(true)}
-          onOpenNewsletterModal={() => setIsNewsletterOpen(true)}
-          onOpenProteinCalculator={() => setIsProteinCalcOpen(true)}
-          onOpenLabExamsGlossary={() => {
-            setLabGlossaryInitialExam(undefined);
-            setIsLabGlossaryOpen(true);
-          }}
-          onOpenDoctorChecklist={() => setIsDoctorChecklistOpen(true)}
-          onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
-        />
-      ) : (
-        /* Main Portal View */
-        <>
+      <>
           {/* Header / Navbar */}
           <Navbar
             onSelectHome={() => {
-              setCurrentView('home');
+              navigate('/');
               window.scrollTo(0, 0);
             }}
             onSelectBlog={(cat) => {
               if (cat) setSelectedCategory(cat);
               else setSelectedCategory('todos');
-              setCurrentView('blog');
+              navigate('/blog');
               window.scrollTo(0, 0);
             }}
             onOpenGuideModal={() => setIsFreeMaterialsOpen(true)}
@@ -213,11 +196,12 @@ export default function App() {
             savedCount={savedArticleIds.length}
             onOpenSavedArticles={() => setIsSavedDrawerOpen(true)}
             onOpenAboutModal={() => {
-              setCurrentView('about');
+              navigate('/sobre');
               window.scrollTo(0, 0);
             }}
             onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}
             onOpenNewsletterModal={() => setIsNewsletterOpen(true)}
+            
             onOpenProteinCalculator={() => setIsProteinCalcOpen(true)}
             onOpenLabExamsGlossary={() => {
               setLabGlossaryInitialExam(undefined);
@@ -225,113 +209,86 @@ export default function App() {
             }}
             onOpenDoctorChecklist={() => setIsDoctorChecklistOpen(true)}
             onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
-            onOpenContactModal={() => {
-              setCurrentView('contact');
+            onSelectContact={() => {
+              navigate('/contato');
               window.scrollTo(0, 0);
             }}
           />
 
-          {currentView === 'home' && (
-            <main className="flex-1">
-              {/* 1. Hero Section (Acolhimento & Propósito com busca de sintomas) */}
-              <HeroSection
+          <Routes>
+            <Route path="/" element={
+              <HomePage
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
                 onSubmitSearch={() => {
-                  setCurrentView('blog');
+                  navigate('/blog');
                   window.scrollTo(0, 0);
                 }}
                 onSymptomSelect={handleSymptomSelect}
                 onOpenAssessment={() => setIsAssessmentModalOpen(true)}
                 onOpenGuideModal={() => setIsFreeMaterialsOpen(true)}
-              />
-
-              {/* 2. Featured Post (Destaque Editorial da Semana) */}
-              {searchQuery === '' && selectedCategory === 'todos' && (
-                <FeaturedPost
-                  article={featuredArticle}
-                  onReadArticle={setActiveArticle}
-                  isSaved={savedArticleIds.includes(featuredArticle.id)}
-                  onToggleSave={toggleSaveArticle}
-                />
-              )}
-
-              {/* 3. Por Onde Começar (Trilhas Rápidas de Leitura) */}
-              <StarterTracks
+                featuredArticle={featuredArticle}
+                onReadArticle={(art) => navigate('/artigo/' + art.slug)}
+                savedArticleIds={savedArticleIds}
+                onToggleSave={toggleSaveArticle}
                 onSelectTrack={handleSelectTrack}
                 onReadArticleById={handleReadArticleById}
+                onOpenProteinCalculator={() => setIsProteinCalcOpen(true)}
+                onOpenDoctorChecklist={() => setIsDoctorChecklistOpen(true)}
+                onOpenLabExamsGlossary={() => {
+                  setLabGlossaryInitialExam(undefined);
+                  setIsLabGlossaryOpen(true);
+                }}
+                onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
+                selectedCategory={selectedCategory}
               />
-
-              {/* 4. Seção de Ferramentas & Calculadoras Clínicas Interativas (SEO / E-E-A-T) */}
-              <div id="ferramentas-section">
-                <InteractiveToolsSection
-                  onOpenProteinCalculator={() => setIsProteinCalcOpen(true)}
-                  onOpenLabExamsGlossary={() => {
-                    setLabGlossaryInitialExam(undefined);
-                    setIsLabGlossaryOpen(true);
-                  }}
-                  onOpenDoctorChecklist={() => setIsDoctorChecklistOpen(true)}
-                  onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
-                  onOpenAssessment={() => setIsAssessmentModalOpen(true)}
-                />
-              </div>
-
-                {/* 6. Banner de Conversão / Isca Digital (Lead Magnet) */}
-              <LeadMagnetBanner
-                onOpenModal={() => setIsGuideModalOpen(true)}
-                onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}
-              />
-            </main>
-          )}
-
-          {currentView === 'blog' && (
-            <main className="flex-1 bg-[#F9F7F2] py-8">
-              <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-4">
-                <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#26463E]">Blog & Artigos</h1>
-                <p className="text-[#525753] mt-3 text-sm sm:text-base">
-                  Explore nosso acervo completo de artigos baseados em evidências científicas.
-                </p>
-              </div>
-              <ArticleGrid
-                articles={filteredArticles}
+            } />
+            <Route path="/blog" element={
+              <BlogPage
+                filteredArticles={filteredArticles}
                 selectedCategory={selectedCategory}
                 onSelectCategory={setSelectedCategory}
                 searchQuery={searchQuery}
                 onClearSearch={() => setSearchQuery('')}
-                onReadArticle={setActiveArticle}
+                onReadArticle={(art) => navigate('/artigo/' + art.slug)}
                 savedArticleIds={savedArticleIds}
                 onToggleSave={toggleSaveArticle}
               />
-            </main>
-          )}
-
-          {currentView === 'about' && (
-            <AboutPage onOpenGuideModal={() => setIsFreeMaterialsOpen(true)} />
-          )}
-
-          {currentView === 'legal' && (
-            <LegalPage initialTab={legalModalTab} />
-          )}
-
-          {currentView === 'contact' && (
-            <ContactPage />
-          )}
+            } />
+            <Route path="/artigo/:slug" element={
+              <ArticlePage
+                savedArticleIds={savedArticleIds}
+                onToggleSave={toggleSaveArticle}
+                onOpenGuideModal={() => setIsFreeMaterialsOpen(true)}
+                onOpenNewsletterModal={() => setIsNewsletterOpen(true)}
+                onOpenProteinCalculator={() => setIsProteinCalcOpen(true)}
+                onOpenLabExamsGlossary={() => {
+                  setLabGlossaryInitialExam(undefined);
+                  setIsLabGlossaryOpen(true);
+                }}
+                onOpenDoctorChecklist={() => setIsDoctorChecklistOpen(true)}
+                onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
+              />
+            } />
+            <Route path="/sobre" element={<AboutPage onOpenGuideModal={() => setIsFreeMaterialsOpen(true)} />} />
+            <Route path="/legal" element={<LegalPage initialTab={legalModalTab} />} />
+            <Route path="/contato" element={<ContactPage />} />
+          </Routes>
         </>
-      )}
 
       {/* Complete Semantic Footer */}
       <Footer
         onSelectCategory={(cat) => {
           setActiveArticle(null);
           setSelectedCategory(cat);
-          setCurrentView('blog');
+          navigate('/blog');
           window.scrollTo(0, 0);
         }}
         onOpenGuideModal={() => setIsGuideModalOpen(true)}
         onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}
         onOpenAssessment={() => setIsAssessmentModalOpen(true)}
         onOpenAboutModal={() => {
-          setCurrentView('about');
+          navigate('/sobre');
           window.scrollTo(0, 0);
         }}
         onOpenAdminLeads={() => setIsAdminLeadsOpen(true)}
@@ -345,11 +302,11 @@ export default function App() {
         onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
         onOpenLegalModal={(tab) => {
           setLegalModalTab(tab);
-          setCurrentView('legal');
+          navigate('/legal');
           window.scrollTo(0, 0);
         }}
         onOpenContactModal={() => {
-          setCurrentView('contact');
+          navigate('/contato');
           window.scrollTo(0, 0);
         }}
       />
@@ -416,11 +373,7 @@ export default function App() {
         onClose={() => setIsProteinCalcOpen(false)}
         onReadArticleById={(id) => {
           setIsProteinCalcOpen(false);
-          handleReadArticleById(id);
-        }}
-        onOpenMaterials={() => {
-          setIsProteinCalcOpen(false);
-          setIsFreeMaterialsOpen(true);
+          const art = ARTICLES_DATA.find(a => a.id === id); if (art) navigate('/artigo/' + art.slug);;
         }}
       />
 
@@ -430,25 +383,15 @@ export default function App() {
           setIsLabGlossaryOpen(false);
           setLabGlossaryInitialExam(undefined);
         }}
-        initialExamId={labGlossaryInitialExam}
         onReadArticleById={(id) => {
           setIsLabGlossaryOpen(false);
           handleReadArticleById(id);
-        }}
-        onOpenDoctorChecklist={() => {
-          setIsLabGlossaryOpen(false);
-          setIsDoctorChecklistOpen(true);
         }}
       />
 
       <DoctorVisitChecklistModal
         isOpen={isDoctorChecklistOpen}
         onClose={() => setIsDoctorChecklistOpen(false)}
-        onOpenLabExams={(examId) => {
-          setIsDoctorChecklistOpen(false);
-          setLabGlossaryInitialExam(examId);
-          setIsLabGlossaryOpen(true);
-        }}
       />
 
       <SupplementGuideModal
@@ -457,10 +400,6 @@ export default function App() {
         onReadArticleById={(id) => {
           setIsSupplementGuideOpen(false);
           handleReadArticleById(id);
-        }}
-        onOpenMaterials={() => {
-          setIsSupplementGuideOpen(false);
-          setIsFreeMaterialsOpen(true);
         }}
       />
     </div>

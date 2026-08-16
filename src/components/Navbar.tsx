@@ -18,7 +18,6 @@ import {
 import { CategoryType } from '../types';
 
 interface NavbarProps {
-  onSelectCategory: (category: CategoryType) => void;
   onOpenGuideModal: () => void;
   onOpenSearch: () => void;
   onOpenAssessment: () => void;
@@ -33,10 +32,10 @@ interface NavbarProps {
   onOpenSupplementGuide?: () => void;
   onSelectHome: () => void;
   onSelectBlog: (category?: CategoryType) => void;
+  onSelectContact: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  onSelectCategory,
   onOpenGuideModal,
   onOpenSearch,
   onOpenAssessment,
@@ -49,9 +48,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenLabExamsGlossary,
   onOpenDoctorChecklist,
   onOpenSupplementGuide,
-  onOpenContactModal,
   onSelectHome,
   onSelectBlog,
+  onSelectContact,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -59,11 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -99,9 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         onOpenAboutModal();
       }
     } else if (item.isAction === 'contact') {
-      if (onOpenContactModal) {
-        onOpenContactModal();
-      }
+      onSelectContact();
     }
   };
 

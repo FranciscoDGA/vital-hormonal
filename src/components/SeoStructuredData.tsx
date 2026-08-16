@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Article } from '../types';
 
 interface SeoStructuredDataProps {
@@ -148,5 +149,23 @@ export const SeoStructuredData: React.FC<SeoStructuredDataProps> = ({ article })
     };
   }, [article]);
 
-  return null;
+  const title = article 
+    ? `${article.title} | Vital Hormonal` 
+    : 'Vital Hormonal | Saúde Funcional, Autonomia e Longevidade Feminina';
+  
+  const description = article 
+    ? article.excerpt 
+    : 'Portal científico de referência em perimenopausa, menopausa, longevidade feminina, nutrição funcional e reposição hormonal baseada em evidências.';
+
+  return (
+    <Helmet>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content={article ? "article" : "website"} />
+      {article && <meta property="og:image" content={article.imageUrl} />}
+      <link rel="canonical" href={article ? `${window.location.origin}/artigo/${article.slug}` : window.location.origin} />
+    </Helmet>
+  );
 };
