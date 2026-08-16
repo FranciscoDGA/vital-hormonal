@@ -15,7 +15,6 @@ import { AdminLeadsModal } from './components/AdminLeadsModal';
 import { SymptomAssessmentModal } from './components/SymptomAssessmentModal';
 import { SearchModal } from './components/SearchModal';
 import { SavedArticlesDrawer } from './components/SavedArticlesDrawer';
-import { AboutModal } from './components/AboutModal';
 import { NewsletterModal } from './components/NewsletterModal';
 import { ProteinCalculatorModal } from './components/ProteinCalculatorModal';
 import { LabExamsGlossaryModal } from './components/LabExamsGlossaryModal';
@@ -23,6 +22,9 @@ import { DoctorVisitChecklistModal } from './components/DoctorVisitChecklistModa
 import { SupplementGuideModal } from './components/SupplementGuideModal';
 import { SeoStructuredData } from './components/SeoStructuredData';
 import { Footer } from './components/Footer';
+import { AboutPage } from './components/AboutPage';
+import { LegalPage } from './components/LegalPage';
+import { ContactModal } from './components/ContactModal';
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('todos');
@@ -36,15 +38,21 @@ export default function App() {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isAssessmentModalOpen, setIsAssessmentModalOpen] = useState(false);
   const [isSavedDrawerOpen, setIsSavedDrawerOpen] = useState(false);
-  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
   const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
 
+  // View state for separate pages (Sobre, Legal)
+  const [currentView, setCurrentView] = useState<'home' | 'about' | 'legal'>('home');
+  const [legalModalTab, setLegalModalTab] = useState<'privacy' | 'terms' | 'lgpd'>('privacy');
+  
   // 4 Interactive High-Authority Clinical Modals
   const [isProteinCalcOpen, setIsProteinCalcOpen] = useState(false);
   const [isLabGlossaryOpen, setIsLabGlossaryOpen] = useState(false);
   const [isDoctorChecklistOpen, setIsDoctorChecklistOpen] = useState(false);
   const [isSupplementGuideOpen, setIsSupplementGuideOpen] = useState(false);
   const [labGlossaryInitialExam, setLabGlossaryInitialExam] = useState<string | undefined>(undefined);
+  
+  // New Modals
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   // Auto-trigger Newsletter pop-up after 22 seconds for first-time / non-subscribed visitors
   useEffect(() => {
@@ -63,6 +71,18 @@ export default function App() {
     } catch {
       // ignore
     }
+  }, []);
+
+  // Keyboard shortcut for Admin Leads Panel (Ctrl + Shift + L)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+        e.preventDefault();
+        setIsAdminLeadsOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   // Saved/Bookmarked articles with local storage persistence
@@ -184,15 +204,18 @@ export default function App() {
           <Navbar
             onSelectCategory={(cat) => {
               setSelectedCategory(cat);
-              setSearchQuery('');
+              setCurrentView('home');
             }}
-            onOpenGuideModal={() => setIsGuideModalOpen(true)}
-            onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}
+            onOpenGuideModal={() => setIsFreeMaterialsOpen(true)}
             onOpenSearch={() => setIsSearchModalOpen(true)}
             onOpenAssessment={() => setIsAssessmentModalOpen(true)}
             savedCount={savedArticleIds.length}
             onOpenSavedArticles={() => setIsSavedDrawerOpen(true)}
-            onOpenAboutModal={() => setIsAboutModalOpen(true)}
+            onOpenAboutModal={() => {
+              setCurrentView('about');
+              window.scrollTo(0, 0);
+            }}
+            onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}
             onOpenNewsletterModal={() => setIsNewsletterOpen(true)}
             onOpenProteinCalculator={() => setIsProteinCalcOpen(true)}
             onOpenLabExamsGlossary={() => {
@@ -201,66 +224,77 @@ export default function App() {
             }}
             onOpenDoctorChecklist={() => setIsDoctorChecklistOpen(true)}
             onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
+            onOpenContactModal={() => setIsContactModalOpen(true)}
           />
 
-          <main className="flex-1">
-            {/* 1. Hero Section (Acolhimento & Propósito com busca de sintomas) */}
-            <HeroSection
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-              onSymptomSelect={handleSymptomSelect}
-              onOpenAssessment={() => setIsAssessmentModalOpen(true)}
-              onOpenGuideModal={() => setIsFreeMaterialsOpen(true)}
-            />
+          {currentView === 'home' && (
+            <main className="flex-1">
+              {/* 1. Hero Section (Acolhimento & Propósito com busca de sintomas) */}
+              <HeroSection
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                onSymptomSelect={handleSymptomSelect}
+                onOpenAssessment={() => setIsAssessmentModalOpen(true)}
+                onOpenGuideModal={() => setIsFreeMaterialsOpen(true)}
+              />
 
-            {/* 2. Featured Post (Destaque Editorial da Semana) */}
-            {searchQuery === '' && selectedCategory === 'todos' && (
-              <FeaturedPost
-                article={featuredArticle}
+              {/* 2. Featured Post (Destaque Editorial da Semana) */}
+              {searchQuery === '' && selectedCategory === 'todos' && (
+                <FeaturedPost
+                  article={featuredArticle}
+                  onReadArticle={setActiveArticle}
+                  isSaved={savedArticleIds.includes(featuredArticle.id)}
+                  onToggleSave={toggleSaveArticle}
+                />
+              )}
+
+              {/* 3. Por Onde Começar (Trilhas Rápidas de Leitura) */}
+              <StarterTracks
+                onSelectTrack={handleSelectTrack}
+                onReadArticleById={handleReadArticleById}
+              />
+
+              {/* 4. Seção de Ferramentas & Calculadoras Clínicas Interativas (SEO / E-E-A-T) */}
+              <div id="ferramentas-section">
+                <InteractiveToolsSection
+                  onOpenProteinCalculator={() => setIsProteinCalcOpen(true)}
+                  onOpenLabExamsGlossary={() => {
+                    setLabGlossaryInitialExam(undefined);
+                    setIsLabGlossaryOpen(true);
+                  }}
+                  onOpenDoctorChecklist={() => setIsDoctorChecklistOpen(true)}
+                  onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
+                  onOpenAssessment={() => setIsAssessmentModalOpen(true)}
+                />
+              </div>
+
+              {/* 5. Grid de Artigos Recentes / Por Sintomas */}
+              <ArticleGrid
+                articles={filteredArticles}
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
+                searchQuery={searchQuery}
+                onClearSearch={() => setSearchQuery('')}
                 onReadArticle={setActiveArticle}
-                isSaved={savedArticleIds.includes(featuredArticle.id)}
+                savedArticleIds={savedArticleIds}
                 onToggleSave={toggleSaveArticle}
               />
-            )}
 
-            {/* 3. Por Onde Começar (Trilhas Rápidas de Leitura) */}
-            <StarterTracks
-              onSelectTrack={handleSelectTrack}
-              onReadArticleById={handleReadArticleById}
-            />
-
-            {/* 4. Seção de Ferramentas & Calculadoras Clínicas Interativas (SEO / E-E-A-T) */}
-            <div id="ferramentas-section">
-              <InteractiveToolsSection
-                onOpenProteinCalculator={() => setIsProteinCalcOpen(true)}
-                onOpenLabExamsGlossary={() => {
-                  setLabGlossaryInitialExam(undefined);
-                  setIsLabGlossaryOpen(true);
-                }}
-                onOpenDoctorChecklist={() => setIsDoctorChecklistOpen(true)}
-                onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
-                onOpenAssessment={() => setIsAssessmentModalOpen(true)}
+              {/* 6. Banner de Conversão / Isca Digital (Lead Magnet) */}
+              <LeadMagnetBanner
+                onOpenModal={() => setIsGuideModalOpen(true)}
+                onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}
               />
-            </div>
+            </main>
+          )}
 
-            {/* 5. Grid de Artigos Recentes / Por Sintomas */}
-            <ArticleGrid
-              articles={filteredArticles}
-              selectedCategory={selectedCategory}
-              onSelectCategory={setSelectedCategory}
-              searchQuery={searchQuery}
-              onClearSearch={() => setSearchQuery('')}
-              onReadArticle={setActiveArticle}
-              savedArticleIds={savedArticleIds}
-              onToggleSave={toggleSaveArticle}
-            />
+          {currentView === 'about' && (
+            <AboutPage onOpenGuideModal={() => setIsFreeMaterialsOpen(true)} />
+          )}
 
-            {/* 6. Banner de Conversão / Isca Digital (Lead Magnet) */}
-            <LeadMagnetBanner
-              onOpenModal={() => setIsGuideModalOpen(true)}
-              onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}
-            />
-          </main>
+          {currentView === 'legal' && (
+            <LegalPage initialTab={legalModalTab} />
+          )}
         </>
       )}
 
@@ -269,16 +303,18 @@ export default function App() {
         onSelectCategory={(cat) => {
           setActiveArticle(null);
           setSelectedCategory(cat);
-          setSearchQuery('');
-          const target = document.getElementById('artigos-section');
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
+          setCurrentView('home');
+          setTimeout(() => {
+            document.getElementById('artigos-section')?.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
         }}
         onOpenGuideModal={() => setIsGuideModalOpen(true)}
         onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}
         onOpenAssessment={() => setIsAssessmentModalOpen(true)}
-        onOpenAboutModal={() => setIsAboutModalOpen(true)}
+        onOpenAboutModal={() => {
+          setCurrentView('about');
+          window.scrollTo(0, 0);
+        }}
         onOpenAdminLeads={() => setIsAdminLeadsOpen(true)}
         onOpenNewsletterModal={() => setIsNewsletterOpen(true)}
         onOpenProteinCalculator={() => setIsProteinCalcOpen(true)}
@@ -288,21 +324,18 @@ export default function App() {
         }}
         onOpenDoctorChecklist={() => setIsDoctorChecklistOpen(true)}
         onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
+        onOpenLegalModal={(tab) => {
+          setLegalModalTab(tab);
+          setCurrentView('legal');
+          window.scrollTo(0, 0);
+        }}
+        onOpenContactModal={() => setIsContactModalOpen(true)}
       />
 
       {/* Global Modals & Drawers */}
       <NewsletterModal
         isOpen={isNewsletterOpen}
         onClose={() => setIsNewsletterOpen(false)}
-      />
-
-      <AboutModal
-        isOpen={isAboutModalOpen}
-        onClose={() => setIsAboutModalOpen(false)}
-        onOpenGuideModal={() => {
-          setIsAboutModalOpen(false);
-          setIsFreeMaterialsOpen(true);
-        }}
       />
 
       <FreeMaterialsModal
@@ -407,6 +440,11 @@ export default function App() {
           setIsSupplementGuideOpen(false);
           setIsFreeMaterialsOpen(true);
         }}
+      />
+
+      <ContactModal 
+        isOpen={isContactModalOpen} 
+        onClose={() => setIsContactModalOpen(false)} 
       />
     </div>
   );

@@ -29,6 +29,8 @@ interface FooterProps {
   onOpenLabExamsGlossary?: () => void;
   onOpenDoctorChecklist?: () => void;
   onOpenSupplementGuide?: () => void;
+  onOpenLegalModal?: (tab: 'privacy' | 'terms' | 'lgpd') => void;
+  onOpenContactModal?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -43,6 +45,8 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenLabExamsGlossary,
   onOpenDoctorChecklist,
   onOpenSupplementGuide,
+  onOpenLegalModal,
+  onOpenContactModal,
 }) => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -283,20 +287,10 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#c2d5cd]/70 pt-4">
           <div className="flex items-center gap-4 flex-wrap">
             <span className="font-bold tracking-widest uppercase text-white/80">© {new Date().getFullYear()} Vital Hormonal</span>
-            <span className="hover:text-white transition-colors">Políticas de Privacidade</span>
-            <span className="hover:text-white transition-colors">Termos de Uso</span>
-
-            {/* Admin Leads View Trigger */}
-            {onOpenAdminLeads && (
-              <button
-                onClick={onOpenAdminLeads}
-                className="hover:text-[#FAEDE7] text-[#c2d5cd]/80 flex items-center gap-1 transition-colors cursor-pointer border-l border-[#335b51] pl-3 ml-1"
-                title="Visualizar contatos e leads cadastrados"
-              >
-                <Users className="w-3 h-3 text-[#C96E56]" />
-                <span>Painel de Leads</span>
-              </button>
-            )}
+            <button onClick={() => onOpenLegalModal?.('privacy')} className="hover:text-white transition-colors cursor-pointer">Políticas de Privacidade</button>
+            <button onClick={() => onOpenLegalModal?.('terms')} className="hover:text-white transition-colors cursor-pointer">Termos de Uso</button>
+            <button onClick={() => onOpenLegalModal?.('lgpd')} className="hover:text-white transition-colors cursor-pointer">LGPD</button>
+            <button onClick={onOpenContactModal} className="hover:text-white transition-colors cursor-pointer">Contato</button>
           </div>
 
           <div className="flex items-center gap-6">

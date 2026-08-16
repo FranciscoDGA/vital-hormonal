@@ -31,6 +31,7 @@ interface NavbarProps {
   onOpenLabExamsGlossary?: () => void;
   onOpenDoctorChecklist?: () => void;
   onOpenSupplementGuide?: () => void;
+  onOpenContactModal?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -47,6 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenLabExamsGlossary,
   onOpenDoctorChecklist,
   onOpenSupplementGuide,
+  onOpenContactModal,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -64,14 +66,18 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks: { label: string; category?: CategoryType; isAction?: 'comece' | 'quiz' | 'about' | 'materials' | 'newsletter' | 'tools' }[] = [
+  const navLinks: { label: string; category?: CategoryType; isAction?: 'comece' | 'quiz' | 'about' | 'materials' | 'newsletter' | 'tools' | 'contact' }[] = [
+    { label: 'Blog', category: 'todos' },
+    { label: 'Materiais Gratuitos', isAction: 'materials' },
+    { label: 'Sobre Nós', isAction: 'about' },
+    { label: 'Contato', isAction: 'contact' },
+  ];
+
+  const dropdownLinks: { label: string; category?: CategoryType; isAction?: 'tools' }[] = [
     { label: 'Sintomas', category: 'sintomas' },
     { label: 'Nutrição', category: 'nutricao' },
     { label: 'Hormônios 35+', category: 'hormonios' },
     { label: 'Ferramentas 40+', isAction: 'tools' },
-    { label: 'Materiais Gratuitos', isAction: 'materials' },
-    { label: 'Newsletter', isAction: 'newsletter' },
-    { label: 'Sobre', isAction: 'about' },
   ];
 
   const handleLinkClick = (item: typeof navLinks[0]) => {
@@ -98,6 +104,10 @@ export const Navbar: React.FC<NavbarProps> = ({
     } else if (item.isAction === 'about') {
       if (onOpenAboutModal) {
         onOpenAboutModal();
+      }
+    } else if (item.isAction === 'contact') {
+      if (onOpenContactModal) {
+        onOpenContactModal();
       }
     }
   };
@@ -146,7 +156,44 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center space-x-5 text-sm font-medium text-[#2D312E]">
-            {navLinks.map((item) => (
+            <button
+              onClick={() => handleLinkClick(navLinks[0])}
+              className="hover:text-[#C96E56] transition-colors cursor-pointer"
+            >
+              Blog
+            </button>
+            
+            {/* Assuntos Dropdown */}
+            <div 
+              className="relative group"
+              onMouseEnter={() => setToolsDropdownOpen(true)}
+              onMouseLeave={() => setToolsDropdownOpen(false)}
+            >
+              <button className="flex items-center gap-1 hover:text-[#C96E56] transition-colors cursor-pointer py-2">
+                <span>Assuntos</span>
+                <ChevronDown className="w-3.5 h-3.5" />
+              </button>
+              
+              {toolsDropdownOpen && (
+                <div className="absolute top-full left-0 w-48 bg-white border border-[#E3EBE6] shadow-xl rounded-xl py-2 z-50 animate-in fade-in slide-in-from-top-2">
+                  {dropdownLinks.map((item) => (
+                    <button
+                      key={item.label}
+                      onClick={() => {
+                        handleLinkClick(item as any);
+                        setToolsDropdownOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-[#2D312E] hover:bg-[#F2F6F4] hover:text-[#C96E56] transition-colors"
+                    >
+                      {item.isAction === 'tools' && <Wrench className="w-3.5 h-3.5 inline mr-1.5 text-[#C96E56]" />}
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {navLinks.slice(1).map((item) => (
               <button
                 key={item.label}
                 id={`nav-${item.label.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
@@ -154,13 +201,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className={`transition-colors cursor-pointer ${
                   item.isAction === 'materials'
                     ? 'text-[#26463E] font-bold hover:text-[#C96E56] flex items-center gap-1'
-                    : item.isAction === 'tools'
-                    ? 'text-[#C96E56] font-bold hover:opacity-80 flex items-center gap-1'
                     : 'hover:text-[#C96E56]'
                 }`}
               >
                 {item.isAction === 'materials' && <FolderDown className="w-3.5 h-3.5 text-[#C96E56]" />}
-                {item.isAction === 'tools' && <Wrench className="w-3.5 h-3.5 text-[#C96E56]" />}
                 <span>{item.label}</span>
               </button>
             ))}
@@ -245,10 +289,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           className="lg:hidden bg-[#F9F7F2] border-b border-[#E3EBE6] px-4 pt-3 pb-6 space-y-3 shadow-lg animate-in slide-in-from-top-2 duration-200"
         >
           <div className="space-y-1">
-            {navLinks.map((item) => (
+            {[...navLinks.slice(0, 1), ...dropdownLinks, ...navLinks.slice(1)].map((item) => (
               <button
                 key={item.label}
-                onClick={() => handleLinkClick(item)}
+                onClick={() => handleLinkClick(item as any)}
                 className="w-full text-left py-2.5 px-3 rounded-lg text-[#2D312E] hover:text-[#26463E] hover:bg-[#E3EBE6] font-medium text-base transition-colors flex items-center justify-between"
               >
                 <span>{item.label}</span>
