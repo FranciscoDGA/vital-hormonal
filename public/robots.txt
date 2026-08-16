@@ -1,5 +1,4 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://vital-hormonal.vercel.app/sitemap.xml
+Sitemap: https://vitalhormonal.com/sitemap.xml
