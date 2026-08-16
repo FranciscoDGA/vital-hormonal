@@ -31,7 +31,8 @@ interface NavbarProps {
   onOpenLabExamsGlossary?: () => void;
   onOpenDoctorChecklist?: () => void;
   onOpenSupplementGuide?: () => void;
-  onOpenContactModal?: () => void;
+  onSelectHome: () => void;
+  onSelectBlog: (category?: CategoryType) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -49,6 +50,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenDoctorChecklist,
   onOpenSupplementGuide,
   onOpenContactModal,
+  onSelectHome,
+  onSelectBlog,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -83,14 +86,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   const handleLinkClick = (item: typeof navLinks[0]) => {
     setMobileMenuOpen(false);
     if (item.isAction === 'home') {
-      onSelectCategory('todos');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      onSelectHome();
     } else if (item.category) {
-      onSelectCategory(item.category);
-      const target = document.getElementById('artigos-section');
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
+      onSelectBlog(item.category);
     } else if (item.isAction === 'tools') {
       const target = document.getElementById('ferramentas-section');
       if (target) {
@@ -133,10 +131,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Logo */}
           <div
             id="brand-logo"
-            onClick={() => {
-              onSelectCategory('todos');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onClick={onSelectHome}
             className="flex flex-col cursor-pointer group select-none"
           >
             <div className="flex items-center gap-2.5">

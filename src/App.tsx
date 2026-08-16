@@ -41,7 +41,7 @@ export default function App() {
   const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
 
   // View state for separate pages (Sobre, Legal, Contato)
-  const [currentView, setCurrentView] = useState<'home' | 'about' | 'legal' | 'contact'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'about' | 'legal' | 'contact' | 'blog'>('home');
   const [legalModalTab, setLegalModalTab] = useState<'privacy' | 'terms' | 'lgpd'>('privacy');
   
   // 4 Interactive High-Authority Clinical Modals
@@ -162,10 +162,8 @@ export default function App() {
 
   const handleSymptomSelect = (tag: string) => {
     setSearchQuery(tag);
-    const target = document.getElementById('artigos-section');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+    setCurrentView('blog');
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -199,9 +197,15 @@ export default function App() {
         <>
           {/* Header / Navbar */}
           <Navbar
-            onSelectCategory={(cat) => {
-              setSelectedCategory(cat);
+            onSelectHome={() => {
               setCurrentView('home');
+              window.scrollTo(0, 0);
+            }}
+            onSelectBlog={(cat) => {
+              if (cat) setSelectedCategory(cat);
+              else setSelectedCategory('todos');
+              setCurrentView('blog');
+              window.scrollTo(0, 0);
             }}
             onOpenGuideModal={() => setIsFreeMaterialsOpen(true)}
             onOpenSearch={() => setIsSearchModalOpen(true)}
@@ -233,6 +237,10 @@ export default function App() {
               <HeroSection
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
+                onSubmitSearch={() => {
+                  setCurrentView('blog');
+                  window.scrollTo(0, 0);
+                }}
                 onSymptomSelect={handleSymptomSelect}
                 onOpenAssessment={() => setIsAssessmentModalOpen(true)}
                 onOpenGuideModal={() => setIsFreeMaterialsOpen(true)}
@@ -268,7 +276,22 @@ export default function App() {
                 />
               </div>
 
-              {/* 5. Grid de Artigos Recentes / Por Sintomas */}
+                {/* 6. Banner de Conversão / Isca Digital (Lead Magnet) */}
+              <LeadMagnetBanner
+                onOpenModal={() => setIsGuideModalOpen(true)}
+                onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}
+              />
+            </main>
+          )}
+
+          {currentView === 'blog' && (
+            <main className="flex-1 bg-[#F9F7F2] py-8">
+              <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-4">
+                <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#26463E]">Blog & Artigos</h1>
+                <p className="text-[#525753] mt-3 text-sm sm:text-base">
+                  Explore nosso acervo completo de artigos baseados em evidências científicas.
+                </p>
+              </div>
               <ArticleGrid
                 articles={filteredArticles}
                 selectedCategory={selectedCategory}
@@ -278,12 +301,6 @@ export default function App() {
                 onReadArticle={setActiveArticle}
                 savedArticleIds={savedArticleIds}
                 onToggleSave={toggleSaveArticle}
-              />
-
-              {/* 6. Banner de Conversão / Isca Digital (Lead Magnet) */}
-              <LeadMagnetBanner
-                onOpenModal={() => setIsGuideModalOpen(true)}
-                onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}
               />
             </main>
           )}
@@ -307,10 +324,8 @@ export default function App() {
         onSelectCategory={(cat) => {
           setActiveArticle(null);
           setSelectedCategory(cat);
-          setCurrentView('home');
-          setTimeout(() => {
-            document.getElementById('artigos-section')?.scrollIntoView({ behavior: 'smooth' });
-          }, 100);
+          setCurrentView('blog');
+          window.scrollTo(0, 0);
         }}
         onOpenGuideModal={() => setIsGuideModalOpen(true)}
         onOpenFreeMaterials={() => setIsFreeMaterialsOpen(true)}

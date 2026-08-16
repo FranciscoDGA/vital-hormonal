@@ -5,6 +5,7 @@ import { POPULAR_SYMPTOMS } from '../data/articles';
 interface HeroSectionProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  onSubmitSearch: () => void;
   onSymptomSelect: (symptom: string) => void;
   onOpenAssessment: () => void;
   onOpenGuideModal: () => void;
@@ -13,16 +14,14 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({
   searchQuery,
   onSearchChange,
+  onSubmitSearch,
   onSymptomSelect,
   onOpenAssessment,
   onOpenGuideModal,
 }) => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const target = document.getElementById('artigos-section');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+    onSubmitSearch();
   };
 
   return (
