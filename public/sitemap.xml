@@ -1,223 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
-  <!-- Página Inicial / Hub Principal -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Static Pages -->
   <url>
-    <loc>https://vital-hormonal.vercel.app/</loc>
-    <lastmod>2025-05-15</lastmod>
+    <loc>https://vitalhormonal.com/</loc>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- Artigo 1: Flutuações de Progesterona -->
   <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=flutuacoes-progesterona-sono-humor-35-45</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://vitalhormonal.com/blog</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Artigo 2: Névoa Mental -->
   <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=nevoa-mental-esquecimento-queda-estradiol</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://vitalhormonal.com/sobre</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
-
-  <!-- Artigo 3: Gordura Visceral -->
   <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=gordura-visceral-mudanca-metabolica-estrogenio</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://vitalhormonal.com/contato</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
-
-  <!-- Artigo 4: Guia de Exames -->
   <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=guia-exames-laboratoriais-saude-hormonal-35-50</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://vitalhormonal.com/legal</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
   </url>
-
-  <!-- Artigo 5: Despertares Noturnos e Calorões -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=despertares-noturnos-caloroes-sutis-hipotalamo</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 6: Síndrome do Pavio Curto -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=sindrome-pavio-curto-irritabilidade-neurotransmissores</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 7: Tireoide vs Perimenopausa -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=tireoide-hipotireoidismo-subclinico-perimenopausa</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 8: Estroboloma e Intestino -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=estroboloma-microbiota-intestinal-detox-estrogenio</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 9: Ansiedade Súbita e Palpitações -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=ansiedade-palpitacoes-taquicardia-perimenopausa</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 10: Reposição Hormonal TRH -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=terapia-reposicao-hormonal-trh-beneficios-seguranca</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 11: Queda de Cabelo e Colágeno -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=queda-cabelo-perda-colageno-flacidez-40-anos</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 12: Libido e Saúde Íntima -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=baixa-libido-ressecamento-vaginal-saude-intima</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 13: Guia de Fitoestrógenos -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=fitoestrogenos-fitoterapicos-menopausa-suplementos</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 14: Sono Reparador e Ritmo Circadiano -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=sono-reparador-ritmo-circadiano-mulheres-35-anos</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 15: Gordura Abdominal e Resistência Insulínica -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=gordura-abdominal-resistencia-insulina-40-anos</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 16: Densidade Óssea e Osteoporose -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=densidade-ossea-osteopenia-osteoporose-prevencao</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 17: Dores Articulares e Queda do Estradiol -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=dores-articulares-rigidez-matinal-queda-estradiol-cartilagem</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 18: Zumbido no Ouvido (Tinnitus) -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=zumbido-ouvido-tinnitus-sensibilidade-auditiva-perimenopausa</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 19: Retenção de Líquidos e Aldosterona -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=retencao-liquidos-inchaco-abdominal-desbalanco-aldosterona-progesterona</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 20: Microdoses de Testosterona Feminina -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=testosterona-feminina-microdoses-energia-libido-massa-muscular</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 21: Jejum Intermitente Feminino 35+ -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=jejum-intermitente-mulheres-35-anos-cortisol-tireoide</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 22: Magnésio Treonato vs Mio-Inositol -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=magnesio-treonato-mio-inositol-combo-ansiedade-insonia-resistencia-insulina</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 23: Higiene de Luz Azul e Melatonina -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=higiene-luz-azul-melatonina-endogena-termorregulacao-hipotalamica</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 24: Musculação vs Cardio aos 40+ -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=musculacao-vs-cardio-perimenopausa-hipertrofia-sarcopenia-gordura-visceral</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 25: Longevidade Cardiovascular e Colesterol -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=longevidade-cardiovascular-feminina-colesterol-pressao-arterial-menopausa</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Artigo 26: Telômeros, Inflammaging e Autofagia -->
-  <url>
-    <loc>https://vital-hormonal.vercel.app/?artigo=telomeros-inflammaging-autofagia-rejuvenescimento-celular-feminino</loc>
-    <lastmod>2025-05-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
 </urlset>
