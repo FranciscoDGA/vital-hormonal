@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArticleGrid } from '../components/ArticleGrid';
 import { Article, CategoryType } from '../types';
+import { AdSlot } from '../components/AdSlot';
 
 interface BlogPageProps {
   filteredArticles: Article[];
@@ -22,6 +23,7 @@ export const BlogPage: React.FC<BlogPageProps> = (props) => {
           Explore nosso acervo completo de artigos baseados em evidências científicas.
         </p>
       </div>
+      <AdSlot position="header" />
       <ArticleGrid
         articles={props.filteredArticles}
         selectedCategory={props.selectedCategory}

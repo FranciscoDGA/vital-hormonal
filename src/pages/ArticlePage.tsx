@@ -39,6 +39,8 @@ import { ARTICLES_DATA } from '../data/articles';
 
 
 import { EditorialAdSlot } from '../components/EditorialAdSlot';
+import { AdSlot } from '../components/AdSlot';
+import ReactMarkdown from 'react-markdown';
 
 interface ArticlePageProps {
   savedArticleIds?: string[];
@@ -452,117 +454,24 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({
 
         {/* Article Body Content */}
         <div className={`space-y-6 ${getFontSizeStyle()} ${isNightMode ? 'text-[#DCE7E2]' : 'text-[#2D312E]'}`}>
-          {article.content.map((paragraph, index) => {
-            // Heading level 2 (## or [H2] or #)
-            if (paragraph.startsWith('## ') || paragraph.startsWith('[H2] ') || paragraph.startsWith('# ')) {
-              const cleanHeading = paragraph
-                .replace(/^#+\s*/, '')
-                .replace(/^\[H2\]\s*/, '')
-                .trim();
-              return (
-                <h2
-                  key={index}
-                  className={`font-serif text-2xl sm:text-3xl font-bold pt-6 pb-2 border-b ${
-                    isNightMode ? 'text-white border-[#2E423B]' : 'text-[#26463E] border-[#E3EBE6]'
-                  }`}
-                >
-                  {cleanHeading}
-                </h2>
-              );
-            }
-
-            // Heading level 3 (### or [H3])
-            if (paragraph.startsWith('### ') || paragraph.startsWith('[H3] ')) {
-              const cleanHeading = paragraph
-                .replace(/^#+\s*/, '')
-                .replace(/^\[H3\]\s*/, '')
-                .trim();
-              return (
-                <h3
-                  key={index}
-                  className={`font-serif text-xl sm:text-2xl font-bold pt-4 pb-1 ${
-                    isNightMode ? 'text-[#FAEDE7]' : 'text-[#26463E]'
-                  }`}
-                >
-                  {cleanHeading}
-                </h3>
-              );
-            }
-
-            // Heading level 4 (#### or [H4])
-            if (paragraph.startsWith('#### ') || paragraph.startsWith('[H4] ')) {
-              const cleanHeading = paragraph
-                .replace(/^#+\s*/, '')
-                .replace(/^\[H4\]\s*/, '')
-                .trim();
-              return (
-                <h4
-                  key={index}
-                  className={`font-serif text-lg font-bold pt-3 pb-1 ${
-                    isNightMode ? 'text-[#E3ECE7]' : 'text-[#26463E]'
-                  }`}
-                >
-                  {cleanHeading}
-                </h4>
-              );
-            }
-
-            // Bullet list item
-            if (paragraph.startsWith('* ')) {
-              const formatted = paragraph.replace('* ', '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-              return (
-                <div key={index} className="flex items-start gap-3 pl-2 py-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#58877b] mt-2.5 shrink-0" />
-                  <span
-                    className="leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: formatted }}
-                  />
-                </div>
-              );
-            }
-
-            // Numbered list item with bold prefix
-            if (/^\d+\.\s\*\*/.test(paragraph)) {
-              const parts = paragraph.split('**');
-              return (
-                <div key={index} className={`pl-4 border-l-2 border-[#C96E56] py-2 my-3 rounded-r-xl pr-4 ${
-                  isNightMode ? 'bg-[#1C2823]' : 'bg-white/70'
-                }`}>
-                  <strong className={`font-semibold ${isNightMode ? 'text-[#FAEDE7]' : 'text-[#26463E]'}`}>
-                    {parts[1]}
-                  </strong>
-                  <span>{parts[2]}</span>
-                </div>
-              );
-            }
-
-            // Inject middle ad slot around the 3rd paragraph
-            const shouldRenderMiddleAd = index === 3;
-
-            // Normal paragraph with markdown bold parsing and hashtag strip
-            const formatted = paragraph
-              .replace(/^#+\s*/, '')
-              .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            return (
-              <React.Fragment key={index}>
-                <p
-                  className="leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: formatted }}
-                />
-                {shouldRenderMiddleAd && (
-                  <EditorialAdSlot
-                    slotType="inArticleMiddle"
-                    contextCategory={article.category}
-                    onOpenMaterials={onOpenGuideModal}
-                    onOpenProteinCalculator={onOpenProteinCalculator}
-                    onOpenLabExamsGlossary={onOpenLabExamsGlossary}
-                    onOpenDoctorChecklist={onOpenDoctorChecklist}
-                    onOpenSupplementGuide={onOpenSupplementGuide}
-                  />
-                )}
-              </React.Fragment>
-            );
-          })}
+          <div className="markdown-content">
+            <ReactMarkdown
+              components={{
+                h2: ({node, ...props}) => <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#26463E] mt-10 mb-4" {...props} />,
+                h3: ({node, ...props}) => <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#26463E] mt-8 mb-3" {...props} />,
+                p: ({node, ...props}) => <p className="leading-relaxed mb-6" {...props} />,
+                ul: ({node, ...props}) => <ul className="list-disc pl-6 mb-6 space-y-2" {...props} />,
+                li: ({node, ...props}) => <li className="pl-2" {...props} />,
+                blockquote: ({node, ...props}) => (
+                  <blockquote className="border-l-4 border-[#26463E] pl-6 py-2 my-8 bg-[#E8F1EB]/50 rounded-r-2xl italic text-[#525753]" {...props} />
+                ),
+                a: ({node, ...props}) => <a className="text-[#26463E] font-medium underline underline-offset-2 decoration-[#E8F1EB] hover:bg-[#E8F1EB] transition-colors" {...props} />,
+                strong: ({node, ...props}) => <strong className="font-bold text-[#26463E]" {...props} />,
+              }}
+            >
+              {article.content.join('\n\n')}
+            </ReactMarkdown>
+          </div>
         </div>
 
         {/* Actionable Suggestion Box */}

@@ -6,6 +6,7 @@ import { Article, CategoryType, QuickTrack } from './types';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './pages/HomePage';
 import { BlogPage } from './pages/BlogPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { HeroSection } from './components/HeroSection';
 import { FeaturedPost } from './components/FeaturedPost';
 import { StarterTracks } from './components/StarterTracks';
@@ -29,6 +30,7 @@ import { Footer } from './components/Footer';
 import { AboutPage } from './components/AboutPage';
 import { LegalPage } from './components/LegalPage';
 import { ContactPage } from './components/ContactPage';
+import { CookieBanner } from './components/CookieBanner';
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('todos');
@@ -273,7 +275,9 @@ export default function App() {
             <Route path="/sobre" element={<AboutPage onOpenGuideModal={() => setIsFreeMaterialsOpen(true)} />} />
             <Route path="/legal" element={<LegalPage initialTab={legalModalTab} />} />
             <Route path="/contato" element={<ContactPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
+          <CookieBanner />
         </>
 
       {/* Complete Semantic Footer */}
