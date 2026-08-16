@@ -66,10 +66,10 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks: { label: string; category?: CategoryType; isAction?: 'comece' | 'quiz' | 'about' | 'materials' | 'newsletter' | 'tools' | 'contact' }[] = [
-    { label: 'Blog', category: 'todos' },
-    { label: 'Materiais Gratuitos', isAction: 'materials' },
+  const navLinks: { label: string; category?: CategoryType; isAction?: 'home' | 'about' | 'contact' | 'blog' | 'tools' }[] = [
+    { label: 'Home', isAction: 'home' },
     { label: 'Sobre Nós', isAction: 'about' },
+    { label: 'Blog', category: 'todos' },
     { label: 'Contato', isAction: 'contact' },
   ];
 
@@ -82,7 +82,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const handleLinkClick = (item: typeof navLinks[0]) => {
     setMobileMenuOpen(false);
-    if (item.category) {
+    if (item.isAction === 'home') {
+      onSelectCategory('todos');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (item.category) {
       onSelectCategory(item.category);
       const target = document.getElementById('artigos-section');
       if (target) {
@@ -92,14 +95,6 @@ export const Navbar: React.FC<NavbarProps> = ({
       const target = document.getElementById('ferramentas-section');
       if (target) {
         target.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else if (item.isAction === 'newsletter') {
-      if (onOpenNewsletterModal) {
-        onOpenNewsletterModal();
-      }
-    } else if (item.isAction === 'materials') {
-      if (onOpenFreeMaterials) {
-        onOpenFreeMaterials();
       }
     } else if (item.isAction === 'about') {
       if (onOpenAboutModal) {
@@ -156,57 +151,50 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center space-x-5 text-sm font-medium text-[#2D312E]">
-            <button
-              onClick={() => handleLinkClick(navLinks[0])}
-              className="hover:text-[#C96E56] transition-colors cursor-pointer"
-            >
-              Blog
-            </button>
-            
-            {/* Assuntos Dropdown */}
-            <div 
-              className="relative group"
-              onMouseEnter={() => setToolsDropdownOpen(true)}
-              onMouseLeave={() => setToolsDropdownOpen(false)}
-            >
-              <button className="flex items-center gap-1 hover:text-[#C96E56] transition-colors cursor-pointer py-2">
-                <span>Assuntos</span>
-                <ChevronDown className="w-3.5 h-3.5" />
-              </button>
-              
-              {toolsDropdownOpen && (
-                <div className="absolute top-full left-0 w-48 bg-white border border-[#E3EBE6] shadow-xl rounded-xl py-2 z-50 animate-in fade-in slide-in-from-top-2">
-                  {dropdownLinks.map((item) => (
-                    <button
-                      key={item.label}
-                      onClick={() => {
-                        handleLinkClick(item as any);
-                        setToolsDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-sm text-[#2D312E] hover:bg-[#F2F6F4] hover:text-[#C96E56] transition-colors"
+            {navLinks.map((item) => (
+              <React.Fragment key={item.label}>
+                {item.label === 'Blog' ? (
+                  <div 
+                    className="relative group"
+                    onMouseEnter={() => setToolsDropdownOpen(true)}
+                    onMouseLeave={() => setToolsDropdownOpen(false)}
+                  >
+                    <button 
+                      onClick={() => handleLinkClick(item)}
+                      className="flex items-center gap-1 hover:text-[#C96E56] transition-colors cursor-pointer py-2"
                     >
-                      {item.isAction === 'tools' && <Wrench className="w-3.5 h-3.5 inline mr-1.5 text-[#C96E56]" />}
-                      {item.label}
+                      <span>Blog / Assuntos</span>
+                      <ChevronDown className="w-3.5 h-3.5" />
                     </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {navLinks.slice(1).map((item) => (
-              <button
-                key={item.label}
-                id={`nav-${item.label.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
-                onClick={() => handleLinkClick(item)}
-                className={`transition-colors cursor-pointer ${
-                  item.isAction === 'materials'
-                    ? 'text-[#26463E] font-bold hover:text-[#C96E56] flex items-center gap-1'
-                    : 'hover:text-[#C96E56]'
-                }`}
-              >
-                {item.isAction === 'materials' && <FolderDown className="w-3.5 h-3.5 text-[#C96E56]" />}
-                <span>{item.label}</span>
-              </button>
+                    
+                    {toolsDropdownOpen && (
+                      <div className="absolute top-full left-0 w-48 bg-white border border-[#E3EBE6] shadow-xl rounded-xl py-2 z-50 animate-in fade-in slide-in-from-top-2">
+                        {dropdownLinks.map((dropdownItem) => (
+                          <button
+                            key={dropdownItem.label}
+                            onClick={() => {
+                              handleLinkClick(dropdownItem as any);
+                              setToolsDropdownOpen(false);
+                            }}
+                            className="w-full text-left px-4 py-2 text-sm text-[#2D312E] hover:bg-[#F2F6F4] hover:text-[#C96E56] transition-colors"
+                          >
+                            {dropdownItem.isAction === 'tools' && <Wrench className="w-3.5 h-3.5 inline mr-1.5 text-[#C96E56]" />}
+                            {dropdownItem.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <button
+                    id={`nav-${item.label.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
+                    onClick={() => handleLinkClick(item)}
+                    className="hover:text-[#C96E56] transition-colors cursor-pointer"
+                  >
+                    <span>{item.label}</span>
+                  </button>
+                )}
+              </React.Fragment>
             ))}
           </nav>
 
@@ -289,15 +277,25 @@ export const Navbar: React.FC<NavbarProps> = ({
           className="lg:hidden bg-[#F9F7F2] border-b border-[#E3EBE6] px-4 pt-3 pb-6 space-y-3 shadow-lg animate-in slide-in-from-top-2 duration-200"
         >
           <div className="space-y-1">
-            {[...navLinks.slice(0, 1), ...dropdownLinks, ...navLinks.slice(1)].map((item) => (
-              <button
-                key={item.label}
-                onClick={() => handleLinkClick(item as any)}
-                className="w-full text-left py-2.5 px-3 rounded-lg text-[#2D312E] hover:text-[#26463E] hover:bg-[#E3EBE6] font-medium text-base transition-colors flex items-center justify-between"
-              >
-                <span>{item.label}</span>
-                <ArrowRight className="w-4 h-4 text-[#58877b]" />
-              </button>
+            {navLinks.map((item) => (
+              <React.Fragment key={item.label}>
+                <button
+                  onClick={() => handleLinkClick(item as any)}
+                  className="w-full text-left py-2.5 px-3 rounded-lg text-[#2D312E] hover:text-[#26463E] hover:bg-[#E3EBE6] font-medium text-base transition-colors flex items-center justify-between"
+                >
+                  <span>{item.label}</span>
+                  <ArrowRight className="w-4 h-4 text-[#58877b]" />
+                </button>
+                {item.label === 'Blog' && dropdownLinks.map((dropdownItem) => (
+                  <button
+                    key={dropdownItem.label}
+                    onClick={() => handleLinkClick(dropdownItem as any)}
+                    className="w-full text-left py-2 px-3 pl-8 rounded-lg text-[#525753] hover:text-[#C96E56] hover:bg-[#F2F6F4] font-medium text-sm transition-colors flex items-center justify-between"
+                  >
+                    <span>{dropdownItem.isAction === 'tools' && <Wrench className="w-3.5 h-3.5 inline mr-1.5 text-[#C96E56]" />}{dropdownItem.label}</span>
+                  </button>
+                ))}
+              </React.Fragment>
             ))}
           </div>
 

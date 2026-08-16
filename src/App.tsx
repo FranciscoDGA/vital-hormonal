@@ -24,7 +24,7 @@ import { SeoStructuredData } from './components/SeoStructuredData';
 import { Footer } from './components/Footer';
 import { AboutPage } from './components/AboutPage';
 import { LegalPage } from './components/LegalPage';
-import { ContactModal } from './components/ContactModal';
+import { ContactPage } from './components/ContactPage';
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('todos');
@@ -40,8 +40,8 @@ export default function App() {
   const [isSavedDrawerOpen, setIsSavedDrawerOpen] = useState(false);
   const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
 
-  // View state for separate pages (Sobre, Legal)
-  const [currentView, setCurrentView] = useState<'home' | 'about' | 'legal'>('home');
+  // View state for separate pages (Sobre, Legal, Contato)
+  const [currentView, setCurrentView] = useState<'home' | 'about' | 'legal' | 'contact'>('home');
   const [legalModalTab, setLegalModalTab] = useState<'privacy' | 'terms' | 'lgpd'>('privacy');
   
   // 4 Interactive High-Authority Clinical Modals
@@ -50,9 +50,6 @@ export default function App() {
   const [isDoctorChecklistOpen, setIsDoctorChecklistOpen] = useState(false);
   const [isSupplementGuideOpen, setIsSupplementGuideOpen] = useState(false);
   const [labGlossaryInitialExam, setLabGlossaryInitialExam] = useState<string | undefined>(undefined);
-  
-  // New Modals
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   // Auto-trigger Newsletter pop-up after 22 seconds for first-time / non-subscribed visitors
   useEffect(() => {
@@ -224,7 +221,10 @@ export default function App() {
             }}
             onOpenDoctorChecklist={() => setIsDoctorChecklistOpen(true)}
             onOpenSupplementGuide={() => setIsSupplementGuideOpen(true)}
-            onOpenContactModal={() => setIsContactModalOpen(true)}
+            onOpenContactModal={() => {
+              setCurrentView('contact');
+              window.scrollTo(0, 0);
+            }}
           />
 
           {currentView === 'home' && (
@@ -295,6 +295,10 @@ export default function App() {
           {currentView === 'legal' && (
             <LegalPage initialTab={legalModalTab} />
           )}
+
+          {currentView === 'contact' && (
+            <ContactPage />
+          )}
         </>
       )}
 
@@ -329,7 +333,10 @@ export default function App() {
           setCurrentView('legal');
           window.scrollTo(0, 0);
         }}
-        onOpenContactModal={() => setIsContactModalOpen(true)}
+        onOpenContactModal={() => {
+          setCurrentView('contact');
+          window.scrollTo(0, 0);
+        }}
       />
 
       {/* Global Modals & Drawers */}
@@ -440,11 +447,6 @@ export default function App() {
           setIsSupplementGuideOpen(false);
           setIsFreeMaterialsOpen(true);
         }}
-      />
-
-      <ContactModal 
-        isOpen={isContactModalOpen} 
-        onClose={() => setIsContactModalOpen(false)} 
       />
     </div>
   );
