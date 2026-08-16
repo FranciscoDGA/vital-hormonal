@@ -1,34 +1,249 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Static Pages -->
   <url>
-    <loc>https://vitalhormonal.com/</loc>
+    <loc>https://vital-hormonal.vercel.app/</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://vitalhormonal.com/blog</loc>
+    <loc>https://vital-hormonal.vercel.app/blog</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vitalhormonal.com/sobre</loc>
+    <loc>https://vital-hormonal.vercel.app/sobre</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://vitalhormonal.com/contato</loc>
+    <loc>https://vital-hormonal.vercel.app/contato</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://vitalhormonal.com/legal</loc>
+    <loc>https://vital-hormonal.vercel.app/legal</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/flutuacoes-progesterona-sono-humor-35-45</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/nevoa-mental-estrogenio-clareza-cognitiva-35</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/cortisol-insulina-metabolismo-feminino-35</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/magnesio-treonato-bisglicinato-taurato-guia-suplementacao</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/despertares-noturnos-caloroes-sutis-hipotalamo</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/musculacao-massa-muscular-35-longevidade-feminina</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/tireoide-vs-perimenopausa-hipotireoidismo-subclinico-40</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/eixo-intestino-hormonio-estroboloma-detox-estrogenio</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/ansiedade-subita-palpitacoes-panico-perimenopausa</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/reposicao-hormonal-trh-seguranca-janela-oportunidade-bioidenticos</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/queda-cabelo-pele-seca-colageno-40-protocolo-capilar</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/libido-ressecamento-vaginal-dor-relacao-testosterona-estrogenio</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/guia-fitoestrogenos-fitoterapicos-vitex-cimicifuga-linhaca</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/sono-reparador-ritmo-circadiano-protocolo-fadiga-matinal</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/gordura-abdominal-menopausa-cardapio-anti-inflamatorio</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/densidade-ossea-osteopenia-osteoporose-quarteto-d3-k2-magnesio</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/dores-articulares-rigidez-matinal-queda-estradiol-cartilagem</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/zumbido-ouvido-tinnitus-sensibilidade-auditiva-perimenopausa</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/retencao-liquidos-inchaco-abdominal-desbalanco-aldosterona-progesterona</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/testosterona-feminina-microdoses-energia-libido-massa-muscular</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/jejum-intermitente-mulheres-35-anos-cortisol-tireoide</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/magnesio-treonato-mio-inositol-combo-ansiedade-insonia-resistencia-insulina</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/higiene-luz-azul-melatonina-endogena-termorregulacao-hipotalamica</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/musculacao-vs-cardio-perimenopausa-hipertrofia-sarcopenia-gordura-visceral</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/longevidade-cardiovascular-feminina-colesterol-pressao-arterial-menopausa</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/telomeros-inflammaging-autofagia-rejuvenescimento-celular-feminino</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/barriga-estufada-gases-perimenopausa-disbiose-estrogenio</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/queda-cabelo-efluvio-telogeno-alopecia-androgenetica-40-anos</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/palpitacao-coracao-acelerado-ansiedade-hormonal-noturna</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/olho-seco-boca-seca-mucosas-queda-hormonal-perimenopausa</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/coceira-na-pele-formigamento-pernas-formigamento-perimenopausa-formicacao</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/tontura-labirintite-emocional-flutuacao-hormonal-perimenopausa</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/suor-frio-noturno-sem-calor-fogacho-hipoglicemia-cortisol</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/cistite-recorrente-infeccao-urinaria-atrofia-vaginal-d-manose</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/perda-memoria-onde-guardei-as-chaves-fog-mental-acetilcolina</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vital-hormonal.vercel.app/artigo/dor-de-cabeca-enxaqueca-catamenial-queda-estrogenio-magnesio-riboflavina</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

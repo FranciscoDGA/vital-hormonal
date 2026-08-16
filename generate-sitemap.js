@@ -1,24 +1,31 @@
 import fs from 'fs';
 import path from 'path';
 
-const siteUrl = 'https://vitalhormonal.com';
+// Change domain to vercel app since the user is testing there.
+// If the user adds a custom domain later, they can change this variable.
+const siteUrl = 'https://vital-hormonal.vercel.app';
 
-// Read articles file
-const articlesContent = fs.readFileSync(path.resolve('./src/data/articles.ts'), 'utf8');
+// Read all files in src/data/articles/
+const articlesDir = path.resolve('./src/data/articles');
+const files = fs.readdirSync(articlesDir);
 
-// Extract all slugs using regex
 const slugs = [];
 const slugRegex = /slug:\s*['"]([^'"]+)['"]/g;
-let match;
-while ((match = slugRegex.exec(articlesContent)) !== null) {
-  slugs.push(match[1]);
-}
+
+files.forEach(file => {
+  if (file.endsWith('.ts')) {
+    const content = fs.readFileSync(path.join(articlesDir, file), 'utf8');
+    let match;
+    while ((match = slugRegex.exec(content)) !== null) {
+      slugs.push(match[1]);
+    }
+  }
+});
 
 const currentDate = new Date().toISOString().split('T')[0];
 
 let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Static Pages -->
   <url>
     <loc>${siteUrl}/</loc>
     <lastmod>${currentDate}</lastmod>
@@ -63,6 +70,5 @@ slugs.forEach(slug => {
 
 sitemap += `</urlset>`;
 
-// Ensure public or dist exists, we will write to public for dev and dist if it exists
 fs.writeFileSync(path.resolve('./public/sitemap.xml'), sitemap);
-console.log('Sitemap gerado com sucesso em public/sitemap.xml!');
+console.log(`Sitemap gerado com sucesso em public/sitemap.xml com ${slugs.length} artigos!`);
