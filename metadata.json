@@ -1,0 +1,6 @@
+{
+  "name": "Vital Hormonal",
+  "description": "Portal e blog de saúde hormonal funcional, longevidade e bem-estar para mulheres 35+.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
